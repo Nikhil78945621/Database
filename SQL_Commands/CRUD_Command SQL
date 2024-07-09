@@ -1,0 +1,21 @@
+// Create (Insert data)
+
+INSERT INTO category (Customer_category_ID, name, discountrate) 
+VALUES ('C001', 'Regular', 10);
+
+// Read (Select data)
+
+SELECT * FROM category;
+
+SELECT name, price FROM product;
+
+//Update (Modify data)
+
+UPDATE customer 
+SET address = '456 Elm St' 
+WHERE customer_ID = 'CU001';
+
+//Delete (Remove Data )
+
+DELETE FROM product 
+WHERE product_ID = 1;

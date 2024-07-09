@@ -1,0 +1,81 @@
+CREATE TABLE category (
+    Customer_category_ID VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(50),
+    discountrate INT
+);
+
+CREATE TABLE customer (
+    customer_ID VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(50),
+    address VARCHAR(50),
+    customer_category_id VARCHAR(50),
+    FOREIGN KEY (customer_category_id) REFERENCES category(Customer_category_ID)
+);
+
+CREATE TABLE inventory (
+    inventoryID INT PRIMARY KEY,
+    stockquantity INT,
+    availabilitystatus VARCHAR(50)
+);
+
+
+CREATE TABLE productcategory (
+    product_category_ID INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+
+CREATE TABLE vendor (
+    vendor_ID INT PRIMARY KEY,
+    vendorname VARCHAR(50)
+);
+
+
+CREATE TABLE product (
+    product_ID INT PRIMARY KEY,
+    name VARCHAR(50),
+    price VARCHAR(50),
+    description VARCHAR(50),
+    vendor_id INT,
+    product_category_id INT,
+    inventoryID INT,
+    FOREIGN KEY (vendor_id) REFERENCES vendor(vendor_ID),
+    FOREIGN KEY (product_category_id) REFERENCES productcategory(product_category_ID),
+    FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+);
+
+
+CREATE TABLE invoice (
+    Invoice_ID INT PRIMARY KEY,
+    date DATE
+);
+
+
+CREATE TABLE payment (
+    payment_ID INT PRIMARY KEY,
+    paymentstatus VARCHAR(50),
+    paymentmethod VARCHAR(50),
+    amount INT
+);
+
+CREATE TABLE orders (
+    order_ID INT PRIMARY KEY,
+    order_date DATE,
+    quantity INT,
+    unit_price INT,
+    amount INT,
+    customer_id INT,
+    invoice_ID INT,
+    Payment_ID INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_ID),
+    FOREIGN KEY (invoice_ID) REFERENCES invoice(Invoice_ID),
+    FOREIGN KEY (Payment_ID) REFERENCES payment(payment_ID)
+);
+
+CREATE TABLE transaction (
+    product_id INT,
+    order_id INT,
+    PRIMARY KEY (product_id, order_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_ID),
+    FOREIGN KEY (order_id) REFERENCES orders(order_ID)
+);

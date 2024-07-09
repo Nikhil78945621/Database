@@ -1,0 +1,16 @@
+Select * from customer;
+
+INSERT INTO customer (customer_ID, name, address, customer_category_id) 
+VALUES ('CU001', 'John Doe', '123 Main St', 'C001');
+
+UPDATE customer 
+SET address = '456 Elm St' 
+WHERE customer_ID = 'CU001';
+
+DELETE FROM customer 
+WHERE customer_ID = 'CU001';
+
+// join orders and customer tables
+SELECT orders.order_ID, orders.order_date, customer.name 
+FROM orders 
+JOIN customer ON orders.customer_id = customer.customer_ID;
